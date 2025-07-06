@@ -115,7 +115,7 @@ alias kc=kubectx
 alias hh="history|fzf"
 alias tf="terraform"
 alias gc="gcloud"
-
+alias v="nvim"
 export FZF_DEFAULT_OPTS="--height ~40% --layout reverse --border"
 
 source <(fzf --zsh)
