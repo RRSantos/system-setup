@@ -20,6 +20,19 @@ is_flatpak_installed() {
 
 # DEV CLI
 
+install_go(){
+  if ! command_exists go; then
+    GO_VERSION="1.24.4"
+    curl -L "https://go.dev/dl/go${GO_VERSION}.linux-amd64.tar.gz" -o "go-linux.tar.gz"
+    sudo tar -C /usr/local -xzf go-linux.tar.gz
+    rm "go-linux.tar.gz"
+  else
+    echo "  >> go is already installed <<"
+  fi
+}
+
+
+
 install_terraform(){
   if ! command_exists terraform; then
     TERRAFORM_VERSION="1.12.2"

@@ -9,6 +9,7 @@ install_kind
 install_kubectl
 install_kubectx
 install_kubens
+install_go
 install_helm
 install_docker
 config_docker_groups
