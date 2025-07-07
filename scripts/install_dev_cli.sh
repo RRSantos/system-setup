@@ -15,6 +15,7 @@ install_docker
 config_docker_groups
 install_az_cli
 install_gcloud
+install_gke_gcloud_auth_plugin
 install_aws_cli
 install_k6
 install_terraform

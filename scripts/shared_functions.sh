@@ -31,7 +31,13 @@ install_go(){
   fi
 }
 
-
+install_gke_gcloud_auth_plugin(){
+  if ! command_exists gke-gcloud-auth-plugin; then
+    sudo apt install google-cloud-cli-gke-gcloud-auth-plugin -y
+  else
+    echo "  >> gke-gcloud-auth-plugin is already installed <<"
+  fi
+}
 
 install_terraform(){
   if ! command_exists terraform; then
