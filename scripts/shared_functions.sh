@@ -437,34 +437,27 @@ install_powerlevel10k(){
 
 
 install_fonts(){
-  FONT_DIR="$HOME/.local/share/fonts"
+  FONT_DIR=$HOME/.local/share/fonts
+  NF_VERSION=v3.4.0
+  BASE_URL="https://github.com/ryanoasis/nerd-fonts/releases/download/${NF_VERSION}"
   FONTS=(
-      "MesloLGS%20NF%20Regular.ttf"
-      "MesloLGS%20NF%20Bold.ttf"
-      "MesloLGS%20NF%20Italic.ttf"
-      "MesloLGS%20NF%20Bold%20Italic.ttf"
+      "FiraCode.zip"
+      "Inconsolata.zip"
+      "Meslo.zip"
+      "Mononoki.zip"
   )
-  BASE_URL="https://github.com/romkatv/powerlevel10k-media/raw/master"
 
   if [ ! -d "$FONT_DIR" ]; then
       mkdir -p "$FONT_DIR"
   fi
 
-  DOWNLOAD_NEEDED=false
   for font_file in "${FONTS[@]}"; do
-      font_file_decoded=$(echo "$font_file" | sed 's/%20/ /g')
-      FONT_PATH="$FONT_DIR/$font_file_decoded"
-      if [ ! -f "$FONT_PATH" ]; then
-          wget -P "$FONT_DIR" "$BASE_URL/$font_file"
-          DOWNLOAD_NEEDED=true
-      else
-          echo "  >> '$font_file_decoded' font already installed <<"
-      fi
+    curl -L "$BASE_URL/$font_file" -o $font_file
+    unzip -o $font_file "*.ttf" -d $FONT_DIR
+    rm "$font_file"
   done
+  fc-cache -fv
 
-  if $DOWNLOAD_NEEDED; then
-      fc-cache -fv
-  fi
 }
 
 install_kitty(){
