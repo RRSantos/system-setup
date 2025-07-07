@@ -53,6 +53,17 @@ install_terraform(){
   fi
 }
 
+install_terragrunt(){
+  if ! command_exists terragrunt; then
+    GO_VERSION="1.24.4"
+    curl -L "https://github.com/gruntwork-io/terragrunt/releases/download/v0.83.0/terragrunt_linux_amd64" -o "terragrunt"
+    sudo install -o root -g root -m 0755 terragrunt /usr/local/bin/terragrunt
+    rm "terragrunt"
+  else
+    echo "  >> terragrunt is already installed <<"
+  fi
+}
+
 install_kubectl(){
   if ! command_exists kubectl; then
     KUBECTL_VERSION="v1.33.1"
@@ -471,5 +482,3 @@ install_kitty(){
     echo "  >> kitty is already installed <<"
   fi
 }
-
-

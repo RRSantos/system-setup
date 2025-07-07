@@ -19,6 +19,7 @@ install_gke_gcloud_auth_plugin
 install_aws_cli
 install_k6
 install_terraform
+install_terragrunt
 
 
 
