@@ -386,27 +386,32 @@ configure_zsh(){
   if [ ! -d "$HOME/.oh-my-zsh" ]; then
       sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
   else
-      echo "   >> oh-my-zsh is already installed <<"
+      echo "  >> oh-my-zsh is already installed <<"
   fi
 }
 
 configure_dotfiles(){
-  git clone https://github.com/RRSantos/system-setup.git ~/system-setup
+  #git clone https://github.com/RRSantos/system-setup.git ~/system-setup
 
-  if [[ -d "~/.zshrc" ]]; then
+  if [[ -f ~/.zshrc ]]; then
   rm ~/.zshrc
   fi
   stow -d ~/system-setup/dotfiles -t ~/ zsh
 
-  if [[ -d "~/.p10k.zsh" ]]; then
+  if [[ -f ~/.p10k.zsh ]]; then
     rm ~/.p10k.zsh
   fi
   stow -d ~/system-setup/dotfiles -t ~/ p10k
 
-  if [[ -d "~/.gitconfig" ]]; then
+  if [[ -f ~/.gitconfig ]]; then
     rm ~/.gitconfig
   fi
   stow -d ~/system-setup/dotfiles -t ~/ gitconfig
+
+  if [[ -d ~/.config/kitty ]]; then
+    rm -rf ~/.config/kitty
+  fi
+  stow -d ~/system-setup/dotfiles -t ~/ kitty
 }
 
 
@@ -415,7 +420,7 @@ install_powerlevel10k(){
   if [ ! -d "$POWERLEVEL10K_DIR" ]; then
     git clone --depth=1 https://github.com/romkatv/powerlevel10k.git "$POWERLEVEL10K_DIR"
   else
-      echo "  >> Powerlevel10k is already installed"
+      echo "  >> Powerlevel10k is already installed <<"
   fi
 }
 
@@ -436,12 +441,13 @@ install_fonts(){
 
   DOWNLOAD_NEEDED=false
   for font_file in "${FONTS[@]}"; do
-      FONT_PATH="$FONT_DIR/$font_file"
+      font_file_decoded=$(echo "$font_file" | sed 's/%20/ /g')
+      FONT_PATH="$FONT_DIR/$font_file_decoded"
       if [ ! -f "$FONT_PATH" ]; then
           wget -P "$FONT_DIR" "$BASE_URL/$font_file"
           DOWNLOAD_NEEDED=true
       else
-          echo "  >> '$font_file' font already installed <<"
+          echo "  >> '$font_file_decoded' font already installed <<"
       fi
   done
 
@@ -450,5 +456,20 @@ install_fonts(){
   fi
 }
 
+install_kitty(){
+  if ! command_exists kitty; then
+    curl -L https://sw.kovidgoyal.net/kitty/installer.sh | sh /dev/stdin
+    cp $HOME/.local/kitty.app/share/applications/kitty.desktop ~/.local/share/applications/
+    # If you want to open text files and images in kitty via your file manager also add the kitty-open.desktop file
+    cp $HOME/.local/kitty.app/share/applications/kitty-open.desktop $HOME/.local/share/applications/
+    # Update the paths to the kitty and its icon in the kitty desktop file(s)
+    sed -i "s|Icon=kitty|Icon=$(readlink -f $HOME)/.local/kitty.app/share/icons/hicolor/256x256/apps/kitty.png|g" $HOME/.local/share/applications/kitty*.desktop
+    sed -i "s|Exec=kitty|Exec=$(readlink -f $HOME)/.local/kitty.app/bin/kitty|g" $HOME/.local/share/applications/kitty*.desktop
+    # Make xdg-terminal-exec (and hence desktop environments that support it use kitty)
+    echo 'kitty.desktop' > $HOME/.config/xdg-terminals.list
+  else
+    echo "  >> kitty is already installed <<"
+  fi
+}
 
 
