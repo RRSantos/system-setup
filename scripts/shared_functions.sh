@@ -475,3 +475,34 @@ install_kitty(){
     echo "  >> kitty is already installed <<"
   fi
 }
+
+install_flameshot(){
+  if ! command_exists flameshot; then
+    sudo apt update && sudo apt install flameshot -y
+
+  else
+    echo "  >> flameshot is already installed <<"
+  fi
+}
+
+install_onlyoffice(){
+  if ! is_flatpak_installed org.onlyoffice.desktopeditors; then
+    flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
+    flatpak install flathub org.onlyoffice.desktopeditors -y
+  else
+    echo "  >> onlyoffice is already installed <<"
+  fi
+}
+
+install_evince(){
+  if ! command_exists evince; then
+    sudo apt install evince -y
+
+  else
+    echo "  >> evince is already installed <<"
+  fi
+}
+
+
+
+
