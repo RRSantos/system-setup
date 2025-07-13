@@ -8,5 +8,7 @@ install_vscode
 install_sql_beekeeper
 install_mongodb_compass
 install_httpie
+install_bruno
 install_ardm
 install_kitty
+

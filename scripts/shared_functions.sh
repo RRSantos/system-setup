@@ -503,6 +503,16 @@ install_evince(){
   fi
 }
 
+install_bruno(){
+  if ! command_exists bruno; then
+    sudo mkdir -p /etc/apt/keyrings
+    sudo gpg --no-default-keyring --keyring /etc/apt/keyrings/bruno.gpg --export --armor | sudo tee /etc/apt/keyrings/bruno.asc > /dev/null
+    echo "deb [signed-by=/etc/apt/keyrings/bruno.asc] http://debian.usebruno.com/ bruno stable" | sudo tee /etc/apt/sources.list.d/bruno.list
 
+    sudo apt update
+    sudo apt install bruno
 
-
+  else
+    echo "  >> bruno is already installed <<"
+  fi
+}
