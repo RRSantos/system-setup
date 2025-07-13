@@ -349,6 +349,13 @@ install_ferdium(){
   else
     echo "  >> ferdium is already installed <<"
   fi
+  if [[ -f ~/.config/autostart/ferdium.desktop ]]; then
+    rm ~/.config/autostart/ferdium.desktop
+  fi
+  if [[ -f ~/.local/share/applications/ferdium.desktop ]]; then
+    rm ~/.local/share/applications/ferdium.desktop
+  fi
+  stow -d ~/system-setup/dotfiles -t ~/ ferdium
 }
 
 ## BASE

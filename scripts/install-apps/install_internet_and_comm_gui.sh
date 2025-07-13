@@ -6,5 +6,4 @@ sudo apt update && sudo apt install flatpak -y
 
 install_chrome
 install_thunderbird
-
 install_ferdium

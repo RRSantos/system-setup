@@ -1,0 +1,8 @@
+[Desktop Entry]
+Type=Application
+Version=1.0
+Name=ferdium
+Comment=ferdiumstartup script
+Exec=/opt/Ferdium/ferdium --disable-features=PowerSaveBlocker
+StartupNotify=false
+Terminal=false
