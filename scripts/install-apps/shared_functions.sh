@@ -523,3 +523,13 @@ install_bruno(){
     echo "  >> bruno is already installed <<"
   fi
 }
+
+install_bitwarden(){
+  if ! is_flatpak_installed flathub com.bitwarden.desktop; then
+    flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
+    flatpak install flathub com.bitwarden.desktop -y
+  else
+    echo "  >> bitwarden is already installed <<"
+  fi
+}
+
