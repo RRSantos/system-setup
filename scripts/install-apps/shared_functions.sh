@@ -209,6 +209,21 @@ install_kind(){
   fi
 }
 
+install_k3d(){
+  if ! command_exists k3d; then
+    K3D_VERSION=v5.8.3
+    curl -L https://github.com/k3d-io/k3d/releases/download/${K3D_VERSION}/k3d-linux-amd64 -o k3d
+    #curl -L https://raw.githubusercontent.com/k3d-io/k3d/main/install.sh | TAG=v5.0.0 bash
+    #curl -Lo ./kind https://kind.sigs.k8s.io/dl/${KIND_VERSION}/kind-linux-amd64
+    sudo install -o root -g root -m 0755 k3d /usr/local/bin/k3d
+    rm "k3d"
+  else
+    echo "  >> k3d already installed <<"
+  fi
+}
+
+
+
 install_k6(){
   if ! command_exists k6; then
     K6_VERSION=v1.1.0

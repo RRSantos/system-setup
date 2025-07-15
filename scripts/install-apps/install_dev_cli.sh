@@ -5,6 +5,7 @@ source "${SCRIPT_DIR}/shared_functions.sh"
 sudo apt update && sudo apt install -y git neovim curl software-properties-common \
 	unzip apt-transport-https ca-certificates gnupg gnupg-agent
 
+install_k3d
 install_kind
 install_kubectl
 install_kubectx
