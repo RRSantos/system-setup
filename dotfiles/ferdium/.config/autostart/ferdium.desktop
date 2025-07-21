@@ -3,6 +3,6 @@ Type=Application
 Version=1.0
 Name=ferdium
 Comment=ferdiumstartup script
-Exec=/opt/Ferdium/ferdium --disable-features=PowerSaveBlocker
+Exec=/opt/Ferdium/ferdium
 StartupNotify=false
 Terminal=false

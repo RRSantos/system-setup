@@ -11,4 +11,5 @@ install_httpie
 install_bruno
 install_ardm
 install_kitty
+install_remmina
 

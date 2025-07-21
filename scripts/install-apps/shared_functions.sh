@@ -540,11 +540,20 @@ install_bruno(){
 }
 
 install_bitwarden(){
-  if ! is_flatpak_installed flathub com.bitwarden.desktop; then
+  if ! is_flatpak_installed com.bitwarden.desktop; then
     flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
     flatpak install flathub com.bitwarden.desktop -y
   else
     echo "  >> bitwarden is already installed <<"
+  fi
+}
+
+install_remmina(){
+  if ! is_flatpak_installed org.remmina.Remmina; then
+    flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
+    flatpak install flathub org.remmina.Remmina -y
+  else
+    echo "  >> remmina is already installed <<"
   fi
 }
 
