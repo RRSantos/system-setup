@@ -118,6 +118,7 @@ alias hh="history|fzf"
 alias tf="terraform"
 alias gc="gcloud"
 alias v="nvim"
+alias gitclean="~/system-setup/scripts/dev/git/clean-local-branches.sh"
 export FZF_DEFAULT_OPTS="--height ~40% --layout reverse --border"
 
 source <(fzf --zsh)
