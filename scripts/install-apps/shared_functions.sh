@@ -18,6 +18,28 @@ is_flatpak_installed() {
   fi
 }
 
+is_appimage_installed() {
+  local app_name="$1"
+
+  # Verifica arquivos .AppImage em diretórios comuns
+  if find ~ ~/.local/bin ~/Downloads -type f -iname "*${app_name}*.AppImage" 2>/dev/null | grep -q .; then
+    return 0  # true
+  fi
+
+  # Verifica atalhos .desktop contendo o nome
+  if grep -i "${app_name}" ~/.local/share/applications/*.desktop 2>/dev/null | grep -q .; then
+    return 0  # true
+  fi
+
+  # Verifica no PATH
+  if command -v "$app_name" >/dev/null 2>&1; then
+    return 0  # true
+  fi
+
+  return 1  # false
+}
+
+
 # DEV CLI
 
 install_go(){
@@ -556,4 +578,15 @@ install_remmina(){
     echo "  >> remmina is already installed <<"
   fi
 }
+
+install_joplin(){
+  if ! is_appimage_installed joplin; then
+    sudo add-apt-repository -y universe
+    sudo apt install libfuse2t64 -y
+    wget -O - https://raw.githubusercontent.com/laurent22/joplin/dev/Joplin_install_and_update.sh | bash
+  else
+    echo "  >> joplin is already installed <<"
+  fi
+}
+
 
