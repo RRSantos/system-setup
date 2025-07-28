@@ -589,4 +589,11 @@ install_joplin(){
   fi
 }
 
-
+install_qownnotes(){
+  if ! is_flatpak_installed org.qownnotes.QOwnNotes; then
+    flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
+    flatpak install flathub org.qownnotes.QOwnNotes -y
+  else
+    echo "  >> QOwnNotes is already installed <<"
+  fi
+}

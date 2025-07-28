@@ -7,4 +7,4 @@ sudo apt update && sudo apt install flatpak -y
 install_onlyoffice
 install_flameshot
 install_evince
-install_joplin
+install_qownnotes
