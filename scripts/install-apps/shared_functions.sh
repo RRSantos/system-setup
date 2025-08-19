@@ -597,3 +597,13 @@ install_qownnotes(){
     echo "  >> QOwnNotes is already installed <<"
   fi
 }
+
+install_draw_io(){
+  if ! command_exists drawio; then
+  curl -L https://github.com/jgraph/drawio-desktop/releases/download/v28.0.6/drawio-amd64-28.0.6.deb -o drawio-amd64.deb
+  sudo dpkg -i drawio-amd64.deb
+  rm drawio-amd64.deb
+  else
+    echo "  >> drawio is already installed <<"
+  fi
+}
