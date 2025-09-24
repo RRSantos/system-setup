@@ -18,5 +18,7 @@ install_powerlevel10k
 ## Install fonts
 install_fonts
 
+install_rclone
+
 
 

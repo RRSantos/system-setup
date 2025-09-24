@@ -607,3 +607,13 @@ install_draw_io(){
     echo "  >> drawio is already installed <<"
   fi
 }
+
+install_rclone(){
+  if ! command_exists rclone; then
+    sudo -v ; curl https://rclone.org/install.sh | sudo bash
+    #sudo apt update && sudo apt install rclone -y
+
+  else
+    echo "  >> rclone is already installed <<"
+  fi
+}
