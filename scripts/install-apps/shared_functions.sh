@@ -618,7 +618,7 @@ install_rclone(){
 
 install_onedrive_personal(){
   if ! command_exists onedrive; then
-    sudo apt update && sudo apt install onedrive -y
+    sudo apt update && sudo apt install onedrive libfuse2t64 -y
   else
     echo "  >> onedrive is already installed <<"
   fi
