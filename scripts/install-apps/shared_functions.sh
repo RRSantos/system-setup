@@ -633,4 +633,10 @@ install_onedrive_personal(){
   else
     echo "  >> onedrive-gui is already installed <<"
   fi
+
+  if [[ -f ~/.config/autostart/ondrive_gui.desktop ]]; then
+    rm ~/.config/autostart/ondrive_gui.desktop
+  fi
+
+  stow -d ~/system-setup/dotfiles -t ~/ ondrive_gui
 }
