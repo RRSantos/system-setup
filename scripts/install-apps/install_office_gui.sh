@@ -8,3 +8,4 @@ install_onlyoffice
 install_flameshot
 install_evince
 install_qownnotes
+install_onedrive_personal

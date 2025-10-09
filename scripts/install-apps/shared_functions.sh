@@ -22,7 +22,7 @@ is_appimage_installed() {
   local app_name="$1"
 
   # Verifica arquivos .AppImage em diretórios comuns
-  if find ~ ~/.local/bin ~/Downloads -type f -iname "*${app_name}*.AppImage" 2>/dev/null | grep -q .; then
+  if find ~ ~/.local/bin ~/Downloads -path "$HOME/onedrive_local/*" -prune -o -type f -iname "${app_name}.AppImage" 2>/dev/null | grep -q .; then
     return 0  # true
   fi
 
@@ -611,9 +611,26 @@ install_draw_io(){
 install_rclone(){
   if ! command_exists rclone; then
     sudo -v ; curl https://rclone.org/install.sh | sudo bash
-    #sudo apt update && sudo apt install rclone -y
-
   else
     echo "  >> rclone is already installed <<"
+  fi
+}
+
+install_onedrive_personal(){
+  if ! command_exists onedrive; then
+    sudo apt update && sudo apt install onedrive -y
+  else
+    echo "  >> onedrive is already installed <<"
+  fi
+
+  if ! is_appimage_installed OneDriveGUI; then
+    ONEDRIVE_CLI_APP_IMAGE_URL="https://github.com/bpozdena/OneDriveGUI/releases/download/v1.2.2/OneDriveGUI-1.2.2-x86_64.AppImage"
+    INSTALL_DIR="${HOME}/.onedrivegui"
+    mkdir -p $INSTALL_DIR
+    curl -L $ONEDRIVE_CLI_APP_IMAGE_URL -o OneDriveGUI.AppImage
+    chmod a+x OneDriveGUI.AppImage
+    mv ./OneDriveGUI.AppImage ${INSTALL_DIR}/
+  else
+    echo "  >> onedrive-gui is already installed <<"
   fi
 }
