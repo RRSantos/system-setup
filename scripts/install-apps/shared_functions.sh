@@ -550,12 +550,10 @@ install_evince(){
 install_bruno(){
   if ! command_exists bruno; then
     sudo mkdir -p /etc/apt/keyrings
-    sudo gpg --no-default-keyring --keyring /etc/apt/keyrings/bruno.gpg --export --armor | sudo tee /etc/apt/keyrings/bruno.asc > /dev/null
-    echo "deb [signed-by=/etc/apt/keyrings/bruno.asc] http://debian.usebruno.com/ bruno stable" | sudo tee /etc/apt/sources.list.d/bruno.list
-
-    sudo apt update
-    sudo apt install bruno
-
+    sudo apt update && sudo apt install gpg curl -y
+    curl -fsSL "https://keyserver.ubuntu.com/pks/lookup?op=get&search=0x9FA6017ECABE0266" | gpg --dearmor | sudo tee /etc/apt/keyrings/bruno.gpg > /dev/null
+    echo "deb [arch=amd64 signed-by=/etc/apt/keyrings/bruno.gpg] http://debian.usebruno.com/ bruno stable" | sudo tee /etc/apt/sources.list.d/bruno.list
+    sudo apt update && sudo apt install bruno -y
   else
     echo "  >> bruno is already installed <<"
   fi
@@ -640,3 +638,16 @@ install_onedrive_personal(){
 
   stow -d ~/system-setup/dotfiles -t ~/ ondrive_gui
 }
+
+install_obsidian(){
+  if ! command_exists obsidian; then
+    OBSIDIAN_VERSION=1.9.14
+
+    curl -L "https://github.com/obsidianmd/obsidian-releases/releases/download/v${OBSIDIAN_VERSION}/obsidian_${OBSIDIAN_VERSION}_amd64.deb" -o obsidian.deb
+    sudo dpkg -i obsidian.deb
+    rm "obsidian.deb"
+  else
+    echo "  >> obsidian is already installed <<"
+  fi
+}
+
