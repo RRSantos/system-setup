@@ -651,3 +651,16 @@ install_obsidian(){
   fi
 }
 
+
+
+install_codium(){
+  if ! command_exists codium; then
+    CODIUM_VERSION=1.105.17075
+
+    curl -L "https://github.com/VSCodium/vscodium/releases/download/${CODIUM_VERSION}/codium_${CODIUM_VERSION}_amd64.deb" -o codium.deb
+    sudo dpkg -i codium.deb
+    rm "codium.deb"
+  else
+    echo "  >> codium is already installed <<"
+  fi
+}
