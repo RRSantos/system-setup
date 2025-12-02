@@ -421,13 +421,21 @@ install_spotify(){
 }
 
 install_mmex(){
-  if ! is_flatpak_installed flathub org.moneymanagerex.MMEX; then
-    flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
-    flatpak install flathub org.moneymanagerex.MMEX -y
+  if ! command_exists mmex; then
+    MMEX_VERSION=1.9.1
+    MMEX_FULL_NAME="mmex_${MMEX_VERSION}-Ubuntu.24.04.noble_amd64.deb"
+
+    curl -L "https://github.com/moneymanagerex/moneymanagerex/releases/download/v${MMEX_VERSION}/${MMEX_FULL_NAME}.zip" -o ${MMEX_FULL_NAME}.zip
+    unzip ${MMEX_FULL_NAME}.zip
+    sudo apt install ./"${MMEX_FULL_NAME}" -y
+    rm "${MMEX_FULL_NAME}.zip"
+    rm "${MMEX_FULL_NAME}"
   else
-    echo "  >> thunderbird is already installed <<"
+    echo "  >> mmex is already installed <<"
   fi
 }
+
+
 
 configure_zsh(){
   DESIRED_SHELL=$(which zsh)
