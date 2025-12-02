@@ -672,3 +672,19 @@ install_codium(){
     echo "  >> codium is already installed <<"
   fi
 }
+
+install_neovim(){
+  if ! command_exists /opt/nvim-linux-x86_64/bin/nvim; then
+    NEOVIM_VERSION=0.11.5
+    NEOVIM_PACKAGE_NAME=nvim-linux-x86_64.tar.gz
+
+    curl -L "https://github.com/neovim/neovim/releases/download/v${NEOVIM_VERSION}/${NEOVIM_PACKAGE_NAME}" -o "${NEOVIM_PACKAGE_NAME}"
+    sudo rm -rf /opt/nvim-linux-x86_64
+    sudo tar -C /opt -xzf "${NEOVIM_PACKAGE_NAME}"
+    rm "${NEOVIM_PACKAGE_NAME}"
+  else
+    echo "  >> neovim is already installed <<"
+  fi
+}
+
+
