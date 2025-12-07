@@ -696,6 +696,12 @@ install_neovim(){
   else
     echo "  >> neovim is already installed <<"
   fi
+
+  if [[ -d ~/.config/nvim ]]; then
+    rm -rf ~/.config/nvim
+  fi
+  
+  stow -d ~/system-setup/dotfiles -t ~/ nvim
 }
 
 
