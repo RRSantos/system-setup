@@ -379,7 +379,7 @@ install_ms_teams(){
 
 install_ferdium(){
   if ! command_exists ferdium; then
-    FERDIUM_VERSION=7.1.0
+    FERDIUM_VERSION=7.1.1
     curl -L https://github.com/ferdium/ferdium-app/releases/download/v${FERDIUM_VERSION}/Ferdium-linux-${FERDIUM_VERSION}-amd64.deb -o ferdium-linux.deb
     sudo dpkg -i ferdium-linux.deb
     rm ferdium-linux.deb
