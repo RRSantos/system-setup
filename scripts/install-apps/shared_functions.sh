@@ -392,6 +392,7 @@ install_ferdium(){
   if [[ -f ~/.local/share/applications/ferdium.desktop ]]; then
     rm ~/.local/share/applications/ferdium.desktop
   fi
+  mkdir -p ~/.local/share/applications 
   stow -d ~/system-setup/dotfiles -t ~/ ferdium
 }
 
@@ -474,6 +475,7 @@ configure_dotfiles(){
   if [[ -d ~/.config/kitty ]]; then
     rm -rf ~/.config/kitty
   fi
+  mkdir -p ~/.local/share/applications 
   stow -d ~/system-setup/dotfiles -t ~/ kitty
 }
 
@@ -624,7 +626,15 @@ install_rclone(){
 
 install_onedrive_personal(){
   if ! command_exists onedrive; then
-    sudo apt update && sudo apt install onedrive libfuse2t64 -y
+    wget -qO - https://download.opensuse.org/repositories/home:/npreining:/debian-ubuntu-onedrive/xUbuntu_24.04/Release.key \
+    | gpg --dearmor \
+    | sudo tee /usr/share/keyrings/obs-onedrive.gpg > /dev/null
+
+    echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/obs-onedrive.gpg] https://download.opensuse.org/repositories/home:/npreining:/debian-ubuntu-onedrive/xUbuntu_25.10/ ./" \
+    | sudo tee /etc/apt/sources.list.d/onedrive.list
+
+    sudo apt update && sudo apt install libfuse2t64 -y
+    sudo apt install --no-install-recommends --no-install-suggests onedrive -y
   else
     echo "  >> onedrive is already installed <<"
   fi

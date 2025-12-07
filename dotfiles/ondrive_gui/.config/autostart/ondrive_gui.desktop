@@ -1,8 +1,0 @@
-[Desktop Entry]
-Type=Application
-Version=1.0
-Name=OneDriveGUI
-Comment=OneDriveGUI script
-Exec=/home/rodrigo/.onedrivegui/OneDriveGUI.AppImage
-StartupNotify=false
-Terminal=false
