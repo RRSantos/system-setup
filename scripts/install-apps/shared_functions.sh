@@ -630,7 +630,8 @@ install_onedrive_personal(){
   fi
 
   if ! is_appimage_installed OneDriveGUI; then
-    ONEDRIVE_CLI_APP_IMAGE_URL="https://github.com/bpozdena/OneDriveGUI/releases/download/v1.2.2/OneDriveGUI-1.2.2-x86_64.AppImage"
+    ONE_DRIVE_CLI_APP_VERSION="1.3.0"
+    ONEDRIVE_CLI_APP_IMAGE_URL="https://github.com/bpozdena/OneDriveGUI/releases/download/v${ONE_DRIVE_CLI_APP_VERSION}/OneDriveGUI-${ONE_DRIVE_CLI_APP_VERSION}-x86_64.AppImage"
     INSTALL_DIR="${HOME}/.onedrivegui"
     mkdir -p $INSTALL_DIR
     curl -L $ONEDRIVE_CLI_APP_IMAGE_URL -o OneDriveGUI.AppImage
