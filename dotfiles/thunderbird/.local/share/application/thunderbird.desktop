@@ -1,0 +1,11 @@
+[Desktop Entry]
+Version=1.0
+Name=Thunderbird
+Comment=Mozilla Thunderbird
+Exec=/opt/thunderbird/thunderbird %u
+Icon=/opt/thunderbird/chrome/icons/default/default256.png
+Terminal=false
+Type=Application
+Categories=Network;Email;
+MimeType=x-scheme-handler/mailto;
+StartupNotify=true

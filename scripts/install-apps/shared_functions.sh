@@ -360,12 +360,22 @@ install_chrome(){
 
 # COMM GUI
 install_thunderbird(){
-  if ! is_flatpak_installed org.mozilla.Thunderbird; then
-    flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
-    flatpak install flathub org.mozilla.Thunderbird -y
+  if ! command_exists thunderbird; then
+    TB_VERSION="145.0"
+    TB_URL="https://download.mozilla.org/?product=thunderbird-${TB_VERSION}-SSL&os=linux64&lang=pt-BR"
+    TB_PACKAGE="thunderbird.tar.xz"
+    wget "${TB_URL}" -O $TB_PACKAGE
+    sudo tar -xJf $TB_PACKAGE -C /opt/
+    sudo ln -s /opt/thunderbird/thunderbird /usr/local/bin/thunderbird
+    rm $TB_PACKAGE
+    
   else
     echo "  >> thunderbird is already installed <<"
   fi
+
+  sudo cp dotfiles/thunderbird/.local/share/application/thunderbird.desktop /usr/share/applications/thunderbird.desktop
+  stow -d ~/system-setup/dotfiles -t ~/ thunderbird
+
 }
 
 
@@ -700,7 +710,7 @@ install_neovim(){
   if [[ -d ~/.config/nvim ]]; then
     rm -rf ~/.config/nvim
   fi
-  
+
   stow -d ~/system-setup/dotfiles -t ~/ nvim
 }
 
