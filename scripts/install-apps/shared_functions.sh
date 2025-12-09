@@ -508,7 +508,8 @@ install_fonts(){
       "FiraCode.zip"
       "Inconsolata.zip"
       "Meslo.zip"
-      "Mononoki.zip"
+      "Mononoki.zip",
+      "RobotoMono.zip"
   )
 
   if [ ! -d "$FONT_DIR" ]; then
@@ -520,6 +521,8 @@ install_fonts(){
     unzip -o $font_file "*.ttf" -d $FONT_DIR
     rm "$font_file"
   done
+  curl -L "https://github.com/google/fonts/raw/refs/heads/main/ofl/inter/Inter%5Bopsz,wght%5D.ttf" -o "$FONT_DIR/Inter.ttf"  
+
   fc-cache -fv
 
 }
