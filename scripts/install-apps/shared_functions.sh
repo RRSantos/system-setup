@@ -373,7 +373,7 @@ install_thunderbird(){
     echo "  >> thunderbird is already installed <<"
   fi
 
-  sudo cp dotfiles/thunderbird/.local/share/application/thunderbird.desktop /usr/share/applications/thunderbird.desktop
+  mkdir -p ~/.local/share/applications
   stow -d ~/system-setup/dotfiles -t ~/ thunderbird
 
 }
@@ -717,4 +717,14 @@ install_neovim(){
   stow -d ~/system-setup/dotfiles -t ~/ nvim
 }
 
+install_redshift(){
+  sudo apt update && sudo apt install redshift redshift-gtk -y
 
+  stow -d ~/system-setup/dotfiles -t ~/ redshift
+  cp configs/redshift/redshift.conf ~/.config/redshift.conf
+
+  systemctl --user daemon-reload
+  systemctl --user enable redshift
+  systemctl --user start redshift
+
+}

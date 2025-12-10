@@ -1,0 +1,11 @@
+[Unit]
+Description=Redshift color temperature adjustment
+
+[Service]
+Environment=DISPLAY=:0
+Environment=XAUTHORITY=%h/.Xauthority
+ExecStart=/usr/bin/redshift -v
+Restart=on-failure
+
+[Install]
+WantedBy=default.target
