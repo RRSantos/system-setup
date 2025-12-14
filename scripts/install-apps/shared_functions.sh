@@ -741,3 +741,24 @@ install_eza(){
     echo "  >> eza is already installed <<"
   fi
 }
+
+install_batcat(){
+  if ! command_exists batcat; then
+    sudo apt install bat -y
+  else
+    echo "  >> batcat is already installed <<"
+  fi
+}
+
+install_yazi(){
+  sudo apt update && sudo apt install ffmpeg 7zip jq poppler-utils fd-find ripgrep fzf zoxide imagemagick -y
+  if ! command_exists yazi; then
+    YAZI_VERSION="25.5.31"    
+    curl -L "https://github.com/sxyazi/yazi/releases/download/v${YAZI_VERSION}/yazi-x86_64-unknown-linux-gnu.zip" -o "yazi.zip"    
+    unzip -q yazi.zip -d yazi-temp
+    sudo mv yazi-temp/*/{ya,yazi} /usr/local/bin
+    rm -rf yazi-temp yazi.zip
+  else
+    echo "  >> yazi already installed <<"
+  fi
+}

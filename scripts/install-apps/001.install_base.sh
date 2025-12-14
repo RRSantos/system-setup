@@ -9,3 +9,5 @@ mkdir -p ~/.config
 sudo apt update && sudo apt install curl flatpak fzf git stow tree zsh htop -y
 
 install_eza
+install_batcat
+install_yazi
