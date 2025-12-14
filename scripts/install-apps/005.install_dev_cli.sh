@@ -22,6 +22,3 @@ install_k6
 install_terraform
 install_terragrunt
 install_neovim
-
-
-

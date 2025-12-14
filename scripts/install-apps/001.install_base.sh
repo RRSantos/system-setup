@@ -7,3 +7,5 @@ mkdir -p ~/.config
 
 # base apps
 sudo apt update && sudo apt install curl flatpak fzf git stow tree zsh htop -y
+
+install_eza

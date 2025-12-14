@@ -119,6 +119,9 @@ alias tf="terraform"
 alias gc="gcloud"
 alias v="nvim"
 alias gitclean="~/system-setup/scripts/dev/git/clean-local-branches.sh"
+alias ls="eza --icons=auto --git"
+alias ll="eza -lh --icons=auto --git"
+alias la="eza -lah --icons=auto --git"
 export FZF_DEFAULT_OPTS="--height ~40% --layout reverse --border"
 
 source <(fzf --zsh)

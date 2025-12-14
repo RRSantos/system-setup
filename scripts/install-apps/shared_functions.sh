@@ -717,7 +717,7 @@ install_neovim(){
   stow -d ~/system-setup/dotfiles -t ~/ nvim
 }
 
-install_redshift(){
+install_redshift(){  
   sudo apt update && sudo apt install redshift redshift-gtk -y
 
   stow -d ~/system-setup/dotfiles -t ~/ redshift
@@ -727,4 +727,17 @@ install_redshift(){
   systemctl --user enable redshift
   systemctl --user start redshift
 
+}
+
+
+install_eza(){
+  if ! command_exists eza; then
+    sudo mkdir -p /etc/apt/keyrings
+    wget -qO- https://raw.githubusercontent.com/eza-community/eza/main/deb.asc | sudo gpg --dearmor -o /etc/apt/keyrings/gierens.gpg
+    echo "deb [signed-by=/etc/apt/keyrings/gierens.gpg] http://deb.gierens.de stable main" | sudo tee /etc/apt/sources.list.d/gierens.list
+    sudo chmod 644 /etc/apt/keyrings/gierens.gpg /etc/apt/sources.list.d/gierens.list
+    sudo apt update && sudo apt install -y eza
+  else
+    echo "  >> eza is already installed <<"
+  fi
 }
