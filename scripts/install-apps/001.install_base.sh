@@ -6,7 +6,7 @@ source "${SCRIPT_DIR}/shared_functions.sh"
 mkdir -p ~/.config
 
 # base apps
-sudo apt update && sudo apt install curl flatpak fzf git stow tree zsh htop -y
+sudo apt update && sudo apt install curl flatpak fzf git stow tree zsh htop unzip -y
 
 install_eza
 install_batcat
