@@ -368,7 +368,7 @@ install_thunderbird(){
     sudo tar -xJf $TB_PACKAGE -C /opt/
     sudo ln -s /opt/thunderbird/thunderbird /usr/local/bin/thunderbird
     rm $TB_PACKAGE
-    
+
   else
     echo "  >> thunderbird is already installed <<"
   fi
@@ -402,7 +402,7 @@ install_ferdium(){
   if [[ -f ~/.local/share/applications/ferdium.desktop ]]; then
     rm ~/.local/share/applications/ferdium.desktop
   fi
-  mkdir -p ~/.local/share/applications 
+  mkdir -p ~/.local/share/applications
   stow -d ~/system-setup/dotfiles -t ~/ ferdium
 }
 
@@ -433,13 +433,11 @@ install_spotify(){
 
 install_mmex(){
   if ! command_exists mmex; then
-    MMEX_VERSION=1.9.1
+    MMEX_VERSION=1.9.2
     MMEX_FULL_NAME="mmex_${MMEX_VERSION}-Ubuntu.24.04.noble_amd64.deb"
 
-    curl -L "https://github.com/moneymanagerex/moneymanagerex/releases/download/v${MMEX_VERSION}/${MMEX_FULL_NAME}.zip" -o ${MMEX_FULL_NAME}.zip
-    unzip ${MMEX_FULL_NAME}.zip
+    curl -L "https://github.com/moneymanagerex/moneymanagerex/releases/download/v${MMEX_VERSION}/${MMEX_FULL_NAME}" -o ${MMEX_FULL_NAME}
     sudo apt install ./"${MMEX_FULL_NAME}" -y
-    rm "${MMEX_FULL_NAME}.zip"
     rm "${MMEX_FULL_NAME}"
   else
     echo "  >> mmex is already installed <<"
@@ -485,7 +483,7 @@ configure_dotfiles(){
   if [[ -d ~/.config/kitty ]]; then
     rm -rf ~/.config/kitty
   fi
-  mkdir -p ~/.local/share/applications 
+  mkdir -p ~/.local/share/applications
   stow -d ~/system-setup/dotfiles -t ~/ kitty
 }
 
@@ -521,7 +519,7 @@ install_fonts(){
     unzip -o $font_file "*.ttf" -d $FONT_DIR
     rm "$font_file"
   done
-  curl -L "https://github.com/google/fonts/raw/refs/heads/main/ofl/inter/Inter%5Bopsz,wght%5D.ttf" -o "$FONT_DIR/Inter.ttf"  
+  curl -L "https://github.com/google/fonts/raw/refs/heads/main/ofl/inter/Inter%5Bopsz,wght%5D.ttf" -o "$FONT_DIR/Inter.ttf"
 
   fc-cache -fv
 
@@ -717,7 +715,7 @@ install_neovim(){
   stow -d ~/system-setup/dotfiles -t ~/ nvim
 }
 
-install_redshift(){  
+install_redshift(){
   sudo apt update && sudo apt install redshift redshift-gtk -y
 
   stow -d ~/system-setup/dotfiles -t ~/ redshift
@@ -753,8 +751,8 @@ install_batcat(){
 install_yazi(){
   sudo apt update && sudo apt install ffmpeg 7zip jq poppler-utils fd-find ripgrep fzf zoxide imagemagick -y
   if ! command_exists yazi; then
-    YAZI_VERSION="25.5.31"    
-    curl -L "https://github.com/sxyazi/yazi/releases/download/v${YAZI_VERSION}/yazi-x86_64-unknown-linux-gnu.zip" -o "yazi.zip"    
+    YAZI_VERSION="25.5.31"
+    curl -L "https://github.com/sxyazi/yazi/releases/download/v${YAZI_VERSION}/yazi-x86_64-unknown-linux-gnu.zip" -o "yazi.zip"
     unzip -q yazi.zip -d yazi-temp
     sudo mv yazi-temp/*/{ya,yazi} /usr/local/bin
     rm -rf yazi-temp yazi.zip
