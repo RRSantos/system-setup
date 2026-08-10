@@ -406,6 +406,20 @@ install_ferdium(){
   stow -d ~/system-setup/dotfiles -t ~/ ferdium
 }
 
+install_csvlens(){
+  if ! command_exists csvlens; then
+    CSVLENS_VERSION=0.15.1
+    curl -L https://github.com/YS-L/csvlens/releases/download/v${CSVLENS_VERSION}/csvlens-x86_64-unknown-linux-gnu.tar.xz -o csvlens.tar.xz
+    tar -xJf csvlens.tar.xz -C ./
+    sudo install -o root -g root -m 0755 csvlens-x86_64-unknown-linux-gnu/csvlens /usr/local/bin/csvlens
+    rm csvlens.tar.xz
+    rm -rf csvlens-x86_64-unknown-linux-gnu
+  else
+    echo "  >> csvlens is already installed <<"
+  fi
+}
+
+
 ## BASE
 
 install_brave(){

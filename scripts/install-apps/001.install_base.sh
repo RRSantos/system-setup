@@ -11,3 +11,4 @@ sudo apt update && sudo apt install curl flatpak fzf git stow tree zsh htop unzi
 install_eza
 install_batcat
 install_yazi
+install_csvlens
