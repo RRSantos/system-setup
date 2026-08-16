@@ -261,6 +261,17 @@ install_k6(){
 
 # DEV GUI
 
+install_vscode_deb(){
+  if ! command_exists code; then
+    VSCODE_VERSION=stable
+    curl -L "https://code.visualstudio.com/sha/download?build=${VSCODE_VERSION}&os=linux-deb-x64" -o code.deb
+    sudo dpkg -i code.deb
+    rm "code.deb"
+  else
+    echo "  >> vscode is already installed <<"
+  fi
+}
+
 install_vscode(){
   if ! command_exists code; then
     echo "code code/add-microsoft-repo boolean true" | sudo debconf-set-selections

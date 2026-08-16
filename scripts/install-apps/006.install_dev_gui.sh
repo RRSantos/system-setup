@@ -5,7 +5,7 @@ source "${SCRIPT_DIR}/shared_functions.sh"
 sudo apt update && sudo apt install -y apt-transport-https wget gpg
 
 
-install_vscode
+install_vscode_deb
 install_codium
 install_sql_beekeeper
 install_mongodb_compass
