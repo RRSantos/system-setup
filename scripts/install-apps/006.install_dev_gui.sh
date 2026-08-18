@@ -15,3 +15,4 @@ install_ardm
 install_kitty
 install_remmina
 install_draw_io
+install_chatgpt_desktop

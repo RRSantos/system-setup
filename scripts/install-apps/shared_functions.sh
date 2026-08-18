@@ -272,6 +272,18 @@ install_vscode_deb(){
   fi
 }
 
+install_chatgpt_desktop(){
+  if ! command_exists chatgpt; then
+    CODEX_VERSION=latest
+
+    curl -L "https://persistent.oaistatic.com/codex-app-prod/linux/deb/${CODEX_VERSION}/chatgpt_amd64.deb" -o chatgpt_amd64.deb
+    sudo dpkg -i chatgpt_amd64.deb
+    rm "chatgpt_amd64.deb"
+  else
+    echo "  >> chatgpt is already installed <<"
+  fi
+}
+
 install_vscode(){
   if ! command_exists code; then
     echo "code code/add-microsoft-repo boolean true" | sudo debconf-set-selections
