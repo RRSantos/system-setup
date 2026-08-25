@@ -706,6 +706,20 @@ install_onedrive_personal(){
   stow -d ~/system-setup/dotfiles -t ~/ ondrive_gui
 }
 
+install_insync(){
+  if ! command_exists insync; then
+    INSYNC_VERSION=3.9.11.60043
+    curl -L "https://cdn.insynchq.com/builds/linux/${INSYNC_VERSION}/insync_${INSYNC_VERSION}-resolute_amd64.deb" -o insync.deb
+    sudo dpkg -i insync.deb
+    rm "insync.deb"
+  else
+    echo "  >> insync is already installed <<"
+  fi
+}
+
+
+
+
 install_obsidian(){
   if ! command_exists obsidian; then
     OBSIDIAN_VERSION=1.9.14
