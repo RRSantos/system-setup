@@ -470,7 +470,7 @@ install_spotify(){
 
 install_mmex(){
   if ! command_exists mmex; then
-    MMEX_VERSION=1.9.2
+    MMEX_VERSION=1.9.4
     MMEX_FULL_NAME="mmex_${MMEX_VERSION}-Ubuntu.24.04.noble_amd64.deb"
 
     curl -L "https://github.com/moneymanagerex/moneymanagerex/releases/download/v${MMEX_VERSION}/${MMEX_FULL_NAME}" -o ${MMEX_FULL_NAME}
