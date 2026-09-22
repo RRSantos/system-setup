@@ -43,7 +43,8 @@ is_appimage_installed() {
 # DEV CLI
 
 install_go(){
-  if ! command_exists go; then
+  local force="${1:-false}"
+  if [[ "$force" == "true" ]] || ! command_exists go; then
     GO_VERSION="1.24.4"
     curl -L "https://go.dev/dl/go${GO_VERSION}.linux-amd64.tar.gz" -o "go-linux.tar.gz"
     sudo tar -C /usr/local -xzf go-linux.tar.gz
@@ -54,7 +55,8 @@ install_go(){
 }
 
 install_gke_gcloud_auth_plugin(){
-  if ! command_exists gke-gcloud-auth-plugin; then
+  local force="${1:-false}"
+  if [[ "$force" == "true" ]] || ! command_exists gke-gcloud-auth-plugin; then
     sudo apt install google-cloud-cli-gke-gcloud-auth-plugin -y
   else
     echo "  >> gke-gcloud-auth-plugin is already installed <<"
@@ -62,7 +64,8 @@ install_gke_gcloud_auth_plugin(){
 }
 
 install_terraform(){
-  if ! command_exists terraform; then
+  local force="${1:-false}"
+  if [[ "$force" == "true" ]] || ! command_exists terraform; then
     TERRAFORM_VERSION="1.12.2"
     TERRAFORM_ZIP="terraform_${TERRAFORM_VERSION}_linux_amd64.zip"
 
@@ -76,7 +79,8 @@ install_terraform(){
 }
 
 install_terragrunt(){
-  if ! command_exists terragrunt; then
+  local force="${1:-false}"
+  if [[ "$force" == "true" ]] || ! command_exists terragrunt; then
     GO_VERSION="1.24.4"
     curl -L "https://github.com/gruntwork-io/terragrunt/releases/download/v0.83.0/terragrunt_linux_amd64" -o "terragrunt"
     sudo install -o root -g root -m 0755 terragrunt /usr/local/bin/terragrunt
@@ -87,7 +91,8 @@ install_terragrunt(){
 }
 
 install_kubectl(){
-  if ! command_exists kubectl; then
+  local force="${1:-false}"
+  if [[ "$force" == "true" ]] || ! command_exists kubectl; then
     KUBECTL_VERSION="v1.33.1"
     curl -LO "https://dl.k8s.io/release/${KUBECTL_VERSION}/bin/linux/amd64/kubectl"
     sudo install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl
@@ -98,7 +103,8 @@ install_kubectl(){
 }
 
 install_az_cli(){
-  if ! command_exists az; then
+  local force="${1:-false}"
+  if [[ "$force" == "true" ]] || ! command_exists az; then
     curl -sL https://aka.ms/InstallAzureCLIDeb | sudo bash
   else
     echo "  >> az CLI already installed <<"
@@ -106,7 +112,8 @@ install_az_cli(){
 }
 
 install_helm(){
-  if ! command_exists helm; then
+  local force="${1:-false}"
+  if [[ "$force" == "true" ]] || ! command_exists helm; then
     HELM_VERSION="v3.18.3"
     curl -L "https://get.helm.sh/helm-${HELM_VERSION}-linux-amd64.tar.gz" -o "helm-linux-amd64.tar.gz"
     tar  -xzvf "helm-linux-amd64.tar.gz"
@@ -119,8 +126,9 @@ install_helm(){
 }
 
 install_gcloud(){
+  local force="${1:-false}"
 
-  if ! command_exists gcloud; then
+  if [[ "$force" == "true" ]] || ! command_exists gcloud; then
     GCLOUD_REPO_FILE="/etc/apt/sources.list.d/google-cloud-sdk.list"
     GCLOUD_KEYRING="/usr/share/keyrings/cloud.google.gpg"
 
@@ -139,8 +147,9 @@ install_gcloud(){
 }
 
 install_aws_cli(){
+  local force="${1:-false}"
 
-  if ! command_exists aws; then
+  if [[ "$force" == "true" ]] || ! command_exists aws; then
     AWSCLI_VERSION=2.27.48
     curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64-${AWSCLI_VERSION}.zip" -o "awscliv2.zip"
     unzip -o awscliv2.zip
@@ -153,7 +162,8 @@ install_aws_cli(){
 }
 
 install_docker(){
-  if ! command_exists docker; then
+  local force="${1:-false}"
+  if [[ "$force" == "true" ]] || ! command_exists docker; then
     # Variáveis para caminhos de arquivo
     DOCKER_KEYRING_DIR="/etc/apt/keyrings"
     DOCKER_KEYRING_FILE="${DOCKER_KEYRING_DIR}/docker.asc"
@@ -197,7 +207,8 @@ config_docker_groups(){
 }
 
 install_kubens(){
-  if ! command_exists kubens; then
+  local force="${1:-false}"
+  if [[ "$force" == "true" ]] || ! command_exists kubens; then
     KUBENS_VERSION=v0.9.5
     curl -L "https://github.com/ahmetb/kubectx/releases/download/${KUBENS_VERSION}/kubens_${KUBENS_VERSION}_linux_x86_64.tar.gz" -o "kubens.tar.gz"
     tar  -xzvf "kubens.tar.gz"
@@ -209,7 +220,8 @@ install_kubens(){
 }
 
 install_kubectx(){
-  if ! command_exists kubectx; then
+  local force="${1:-false}"
+  if [[ "$force" == "true" ]] || ! command_exists kubectx; then
     KUBECTX_VERSION=v0.9.5
     curl -L "https://github.com/ahmetb/kubectx/releases/download/${KUBECTX_VERSION}/kubectx_${KUBECTX_VERSION}_linux_x86_64.tar.gz" -o "kubectx.tar.gz"
     tar  -xzvf "kubectx.tar.gz"
@@ -221,7 +233,8 @@ install_kubectx(){
 }
 
 install_kind(){
-  if ! command_exists kind; then
+  local force="${1:-false}"
+  if [[ "$force" == "true" ]] || ! command_exists kind; then
     KIND_VERSION=v0.29.0
     curl -Lo ./kind https://kind.sigs.k8s.io/dl/${KIND_VERSION}/kind-linux-amd64
     sudo install -o root -g root -m 0755 kind /usr/local/bin/kind
@@ -232,7 +245,8 @@ install_kind(){
 }
 
 install_k3d(){
-  if ! command_exists k3d; then
+  local force="${1:-false}"
+  if [[ "$force" == "true" ]] || ! command_exists k3d; then
     K3D_VERSION=v5.8.3
     curl -L https://github.com/k3d-io/k3d/releases/download/${K3D_VERSION}/k3d-linux-amd64 -o k3d
     #curl -L https://raw.githubusercontent.com/k3d-io/k3d/main/install.sh | TAG=v5.0.0 bash
@@ -247,7 +261,8 @@ install_k3d(){
 
 
 install_k6(){
-  if ! command_exists k6; then
+  local force="${1:-false}"
+  if [[ "$force" == "true" ]] || ! command_exists k6; then
     K6_VERSION=v1.1.0
     curl -L https://github.com/grafana/k6/releases/download/${K6_VERSION}/k6-${K6_VERSION}-linux-amd64.tar.gz -o k6.tar.gz
     tar -xzvf "k6.tar.gz"
@@ -262,7 +277,8 @@ install_k6(){
 # DEV GUI
 
 install_vscode_deb(){
-  if ! command_exists code; then
+  local force="${1:-false}"
+  if [[ "$force" == "true" ]] || ! command_exists code; then
     VSCODE_VERSION=stable
     curl -L "https://code.visualstudio.com/sha/download?build=${VSCODE_VERSION}&os=linux-deb-x64" -o code.deb
     sudo dpkg -i code.deb
@@ -273,7 +289,8 @@ install_vscode_deb(){
 }
 
 install_chatgpt_desktop(){
-  if ! command_exists chatgpt; then
+  local force="${1:-false}"
+  if [[ "$force" == "true" ]] || ! command_exists chatgpt; then
     CODEX_VERSION=latest
 
     curl -L "https://persistent.oaistatic.com/codex-app-prod/linux/deb/${CODEX_VERSION}/chatgpt_amd64.deb" -o chatgpt_amd64.deb
@@ -285,7 +302,8 @@ install_chatgpt_desktop(){
 }
 
 install_vscode(){
-  if ! command_exists code; then
+  local force="${1:-false}"
+  if [[ "$force" == "true" ]] || ! command_exists code; then
     echo "code code/add-microsoft-repo boolean true" | sudo debconf-set-selections
 
     MS_KEYRING_DIR="/etc/apt/keyrings"
@@ -320,7 +338,8 @@ install_vscode(){
 
 
 install_sql_beekeeper(){
-  if ! command_exists beekeeper-studio; then
+  local force="${1:-false}"
+  if [[ "$force" == "true" ]] || ! command_exists beekeeper-studio; then
     BEEKEEPER_VERSION=5.2.12
     curl -L "https://github.com/beekeeper-studio/beekeeper-studio/releases/download/v${BEEKEEPER_VERSION}/beekeeper-studio_${BEEKEEPER_VERSION}_amd64.deb" -o beekeeper-studio.deb
     sudo dpkg -i beekeeper-studio.deb
@@ -331,7 +350,8 @@ install_sql_beekeeper(){
 }
 
 install_mongodb_compass(){
-  if ! command_exists mongodb-compass; then
+  local force="${1:-false}"
+  if [[ "$force" == "true" ]] || ! command_exists mongodb-compass; then
     COMPASS_VERSION=1.46.5
     curl -L https://downloads.mongodb.com/compass/mongodb-compass_${COMPASS_VERSION}_amd64.deb -o mongodb-compass.deb
     sudo dpkg -i mongodb-compass.deb
@@ -342,7 +362,8 @@ install_mongodb_compass(){
 }
 
 install_httpie(){
-  if ! command_exists httpie; then
+  local force="${1:-false}"
+  if [[ "$force" == "true" ]] || ! command_exists httpie; then
     HTTP_REPO_FILE="/etc/apt/sources.list.d/httpie.list"
     HTTP_REPO_LINE="deb [arch=amd64 signed-by=/usr/share/keyrings/httpie.gpg] https://packages.httpie.io/deb ./"
     if ! sudo grep -qF "$HTTP_REPO_LINE" "$HTTP_REPO_FILE"; then
@@ -360,7 +381,8 @@ install_httpie(){
 
 
 install_ardm(){
-  if ! command_exists another-redis-desktop-manager; then
+  local force="${1:-false}"
+  if [[ "$force" == "true" ]] || ! command_exists another-redis-desktop-manager; then
     sudo snap install another-redis-desktop-manager
 
   else
@@ -371,7 +393,8 @@ install_ardm(){
 # INTERNET GUI
 
 install_chrome(){
-  if ! command_exists google-chrome; then
+  local force="${1:-false}"
+  if [[ "$force" == "true" ]] || ! command_exists google-chrome; then
   curl -L https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb -o google-chrome.deb
   sudo dpkg -i google-chrome.deb
   rm google-chrome.deb
@@ -383,7 +406,8 @@ install_chrome(){
 
 # COMM GUI
 install_thunderbird(){
-  if ! command_exists thunderbird; then
+  local force="${1:-false}"
+  if [[ "$force" == "true" ]] || ! command_exists thunderbird; then
     TB_VERSION="145.0"
     TB_URL="https://download.mozilla.org/?product=thunderbird-${TB_VERSION}-SSL&os=linux64&lang=pt-BR"
     TB_PACKAGE="thunderbird.tar.xz"
@@ -403,7 +427,8 @@ install_thunderbird(){
 
 
 install_ms_teams(){
-  if ! command_exists teams-for-linux; then
+  local force="${1:-false}"
+  if [[ "$force" == "true" ]] || ! command_exists teams-for-linux; then
   sudo snap install teams-for-linux
   else
     echo "  >> teams-for-linux is already installed <<"
@@ -411,8 +436,9 @@ install_ms_teams(){
 }
 
 install_ferdium(){
-  if ! command_exists ferdium; then
-    FERDIUM_VERSION=7.1.1
+  local force="${1:-false}"
+  if [[ "$force" == "true" ]] || ! command_exists ferdium; then
+    FERDIUM_VERSION=7.2.3 #7.1.1
     curl -L https://github.com/ferdium/ferdium-app/releases/download/v${FERDIUM_VERSION}/Ferdium-linux-${FERDIUM_VERSION}-amd64.deb -o ferdium-linux.deb
     sudo dpkg -i ferdium-linux.deb
     rm ferdium-linux.deb
@@ -430,7 +456,8 @@ install_ferdium(){
 }
 
 install_csvlens(){
-  if ! command_exists csvlens; then
+  local force="${1:-false}"
+  if [[ "$force" == "true" ]] || ! command_exists csvlens; then
     CSVLENS_VERSION=0.15.1
     curl -L https://github.com/YS-L/csvlens/releases/download/v${CSVLENS_VERSION}/csvlens-x86_64-unknown-linux-gnu.tar.xz -o csvlens.tar.xz
     tar -xJf csvlens.tar.xz -C ./
@@ -446,7 +473,8 @@ install_csvlens(){
 ## BASE
 
 install_brave(){
-  if ! command_exists brave-browser; then
+  local force="${1:-false}"
+  if [[ "$force" == "true" ]] || ! command_exists brave-browser; then
     curl -fsSLo /usr/share/keyrings/brave-browser-archive-keyring.gpg https://brave-browser-apt-release.s3.brave.com/brave-browser-archive-keyring.gpg
     curl -fsSLo /etc/apt/sources.list.d/brave-browser-release.sources https://brave-browser-apt-release.s3.brave.com/brave-browser.sources
 
@@ -457,7 +485,8 @@ install_brave(){
 }
 
 install_spotify(){
-  if ! command_exists spotify-client; then
+  local force="${1:-false}"
+  if [[ "$force" == "true" ]] || ! command_exists spotify-client; then
     curl -sS https://download.spotify.com/debian/pubkey_C85668DF69375001.gpg | gpg --dearmor --yes -o /etc/apt/trusted.gpg.d/spotify.gpg
     echo "deb https://repository.spotify.com stable non-free" | tee /etc/apt/sources.list.d/spotify.list
 
@@ -469,7 +498,8 @@ install_spotify(){
 }
 
 install_mmex(){
-  if ! command_exists mmex; then
+  local force="${1:-false}"
+  if [[ "$force" == "true" ]] || ! command_exists mmex; then
     MMEX_VERSION=1.9.4
     MMEX_FULL_NAME="mmex_${MMEX_VERSION}-Ubuntu.24.04.noble_amd64.deb"
 
@@ -526,8 +556,9 @@ configure_dotfiles(){
 
 
 install_powerlevel10k(){
+  local force="${1:-false}"
   POWERLEVEL10K_DIR="${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k"
-  if [ ! -d "$POWERLEVEL10K_DIR" ]; then
+  if [[ "$force" == "true" ]] || [ ! -d "$POWERLEVEL10K_DIR" ]; then
     git clone --depth=1 https://github.com/romkatv/powerlevel10k.git "$POWERLEVEL10K_DIR"
   else
       echo "  >> Powerlevel10k is already installed <<"
@@ -563,7 +594,8 @@ install_fonts(){
 }
 
 install_kitty(){
-  if ! command_exists kitty; then
+  local force="${1:-false}"
+  if [[ "$force" == "true" ]] || ! command_exists kitty; then
     curl -L https://sw.kovidgoyal.net/kitty/installer.sh | sh /dev/stdin
     cp $HOME/.local/kitty.app/share/applications/kitty.desktop ~/.local/share/applications/
     # If you want to open text files and images in kitty via your file manager also add the kitty-open.desktop file
@@ -579,7 +611,8 @@ install_kitty(){
 }
 
 install_flameshot(){
-  if ! command_exists flameshot; then
+  local force="${1:-false}"
+  if [[ "$force" == "true" ]] || ! command_exists flameshot; then
     sudo apt update && sudo apt install flameshot -y
 
   else
@@ -588,7 +621,8 @@ install_flameshot(){
 }
 
 install_onlyoffice(){
-  if ! is_flatpak_installed org.onlyoffice.desktopeditors; then
+  local force="${1:-false}"
+  if [[ "$force" == "true" ]] || ! is_flatpak_installed org.onlyoffice.desktopeditors; then
     flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
     flatpak install flathub org.onlyoffice.desktopeditors -y
   else
@@ -597,7 +631,8 @@ install_onlyoffice(){
 }
 
 install_evince(){
-  if ! command_exists evince; then
+  local force="${1:-false}"
+  if [[ "$force" == "true" ]] || ! command_exists evince; then
     sudo apt install evince -y
 
   else
@@ -606,7 +641,8 @@ install_evince(){
 }
 
 install_bruno(){
-  if ! command_exists bruno; then
+  local force="${1:-false}"
+  if [[ "$force" == "true" ]] || ! command_exists bruno; then
     sudo mkdir -p /etc/apt/keyrings
     sudo apt update && sudo apt install gpg curl -y
     curl -fsSL "https://keyserver.ubuntu.com/pks/lookup?op=get&search=0x9FA6017ECABE0266" | gpg --dearmor | sudo tee /etc/apt/keyrings/bruno.gpg > /dev/null
@@ -618,7 +654,8 @@ install_bruno(){
 }
 
 install_bitwarden(){
-  if ! is_flatpak_installed com.bitwarden.desktop; then
+  local force="${1:-false}"
+  if [[ "$force" == "true" ]] || ! is_flatpak_installed com.bitwarden.desktop; then
     flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
     flatpak install flathub com.bitwarden.desktop -y
   else
@@ -627,7 +664,8 @@ install_bitwarden(){
 }
 
 install_remmina(){
-  if ! is_flatpak_installed org.remmina.Remmina; then
+  local force="${1:-false}"
+  if [[ "$force" == "true" ]] || ! is_flatpak_installed org.remmina.Remmina; then
     flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
     flatpak install flathub org.remmina.Remmina -y
   else
@@ -636,7 +674,8 @@ install_remmina(){
 }
 
 install_joplin(){
-  if ! is_appimage_installed joplin; then
+  local force="${1:-false}"
+  if [[ "$force" == "true" ]] || ! is_appimage_installed joplin; then
     sudo add-apt-repository -y universe
     sudo apt install libfuse2t64 -y
     wget -O - https://raw.githubusercontent.com/laurent22/joplin/dev/Joplin_install_and_update.sh | bash
@@ -646,7 +685,8 @@ install_joplin(){
 }
 
 install_qownnotes(){
-  if ! is_flatpak_installed org.qownnotes.QOwnNotes; then
+  local force="${1:-false}"
+  if [[ "$force" == "true" ]] || ! is_flatpak_installed org.qownnotes.QOwnNotes; then
     flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
     flatpak install flathub org.qownnotes.QOwnNotes -y
   else
@@ -655,7 +695,8 @@ install_qownnotes(){
 }
 
 install_draw_io(){
-  if ! command_exists drawio; then
+  local force="${1:-false}"
+  if [[ "$force" == "true" ]] || ! command_exists drawio; then
   curl -L https://github.com/jgraph/drawio-desktop/releases/download/v28.0.6/drawio-amd64-28.0.6.deb -o drawio-amd64.deb
   sudo dpkg -i drawio-amd64.deb
   rm drawio-amd64.deb
@@ -665,7 +706,8 @@ install_draw_io(){
 }
 
 install_rclone(){
-  if ! command_exists rclone; then
+  local force="${1:-false}"
+  if [[ "$force" == "true" ]] || ! command_exists rclone; then
     sudo -v ; curl https://rclone.org/install.sh | sudo bash
   else
     echo "  >> rclone is already installed <<"
@@ -673,7 +715,8 @@ install_rclone(){
 }
 
 install_onedrive_personal(){
-  if ! command_exists onedrive; then
+  local force="${1:-false}"
+  if [[ "$force" == "true" ]] || ! command_exists onedrive; then
     wget -qO - https://download.opensuse.org/repositories/home:/npreining:/debian-ubuntu-onedrive/xUbuntu_24.04/Release.key \
     | gpg --dearmor \
     | sudo tee /usr/share/keyrings/obs-onedrive.gpg > /dev/null
@@ -687,7 +730,7 @@ install_onedrive_personal(){
     echo "  >> onedrive is already installed <<"
   fi
 
-  if ! is_appimage_installed OneDriveGUI; then
+  if [[ "$force" == "true" ]] || ! is_appimage_installed OneDriveGUI; then
     ONE_DRIVE_CLI_APP_VERSION="1.3.0"
     ONEDRIVE_CLI_APP_IMAGE_URL="https://github.com/bpozdena/OneDriveGUI/releases/download/v${ONE_DRIVE_CLI_APP_VERSION}/OneDriveGUI-${ONE_DRIVE_CLI_APP_VERSION}-x86_64.AppImage"
     INSTALL_DIR="${HOME}/.onedrivegui"
@@ -707,7 +750,8 @@ install_onedrive_personal(){
 }
 
 install_insync(){
-  if ! command_exists insync; then
+  local force="${1:-false}"
+  if [[ "$force" == "true" ]] || ! command_exists insync; then
     INSYNC_VERSION=3.9.11.60043
     curl -L "https://cdn.insynchq.com/builds/linux/${INSYNC_VERSION}/insync_${INSYNC_VERSION}-resolute_amd64.deb" -o insync.deb
     sudo dpkg -i insync.deb
@@ -721,7 +765,8 @@ install_insync(){
 
 
 install_obsidian(){
-  if ! command_exists obsidian; then
+  local force="${1:-false}"
+  if [[ "$force" == "true" ]] || ! command_exists obsidian; then
     OBSIDIAN_VERSION=1.9.14
 
     curl -L "https://github.com/obsidianmd/obsidian-releases/releases/download/v${OBSIDIAN_VERSION}/obsidian_${OBSIDIAN_VERSION}_amd64.deb" -o obsidian.deb
@@ -735,7 +780,8 @@ install_obsidian(){
 
 
 install_codium(){
-  if ! command_exists codium; then
+  local force="${1:-false}"
+  if [[ "$force" == "true" ]] || ! command_exists codium; then
     CODIUM_VERSION=1.105.17075
 
     curl -L "https://github.com/VSCodium/vscodium/releases/download/${CODIUM_VERSION}/codium_${CODIUM_VERSION}_amd64.deb" -o codium.deb
@@ -747,7 +793,8 @@ install_codium(){
 }
 
 install_neovim(){
-  if ! command_exists /opt/nvim-linux-x86_64/bin/nvim; then
+  local force="${1:-false}"
+  if [[ "$force" == "true" ]] || ! command_exists /opt/nvim-linux-x86_64/bin/nvim; then
     NEOVIM_VERSION=0.11.5
     NEOVIM_PACKAGE_NAME=nvim-linux-x86_64.tar.gz
 
@@ -780,7 +827,8 @@ install_redshift(){
 
 
 install_eza(){
-  if ! command_exists eza; then
+  local force="${1:-false}"
+  if [[ "$force" == "true" ]] || ! command_exists eza; then
     sudo mkdir -p /etc/apt/keyrings
     wget -qO- https://raw.githubusercontent.com/eza-community/eza/main/deb.asc | sudo gpg --dearmor -o /etc/apt/keyrings/gierens.gpg
     echo "deb [signed-by=/etc/apt/keyrings/gierens.gpg] http://deb.gierens.de stable main" | sudo tee /etc/apt/sources.list.d/gierens.list
@@ -792,7 +840,8 @@ install_eza(){
 }
 
 install_batcat(){
-  if ! command_exists batcat; then
+  local force="${1:-false}"
+  if [[ "$force" == "true" ]] || ! command_exists batcat; then
     sudo apt install bat -y
   else
     echo "  >> batcat is already installed <<"
@@ -800,8 +849,9 @@ install_batcat(){
 }
 
 install_yazi(){
+  local force="${1:-false}"
   sudo apt update && sudo apt install ffmpeg 7zip jq poppler-utils fd-find ripgrep fzf zoxide imagemagick -y
-  if ! command_exists yazi; then
+  if [[ "$force" == "true" ]] || ! command_exists yazi; then
     YAZI_VERSION="25.5.31"
     curl -L "https://github.com/sxyazi/yazi/releases/download/v${YAZI_VERSION}/yazi-x86_64-unknown-linux-gnu.zip" -o "yazi.zip"
     unzip -q yazi.zip -d yazi-temp
