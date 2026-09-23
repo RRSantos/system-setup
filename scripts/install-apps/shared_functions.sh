@@ -146,6 +146,32 @@ install_gcloud(){
   fi
 }
 
+install_cloud_sql_proxy(){
+  local force="${1:-false}"
+
+  if [[ "$force" == "true" ]] || ! command_exists cloud-sql-proxy; then
+    CLOUD_SQL_PROXY_VERSION="v2.25.4"
+    INSTALL_PATH="/usr/local/bin/cloud-sql-proxy"
+    TMP_FILE="$(mktemp)"
+    curl -fL "https://storage.googleapis.com/cloud-sql-connectors/cloud-sql-proxy/${CLOUD_SQL_PROXY_VERSION}/cloud-sql-proxy.linux.amd64" -o "$TMP_FILE"
+    chmod +x "$TMP_FILE"
+
+    echo "Installing to ${INSTALL_PATH}..."
+
+    sudo install \
+      -o root \
+      -g root \
+      -m 0755 \
+      "$TMP_FILE" \
+      "$INSTALL_PATH"
+    rm "$TMP_FILE"
+  else
+    echo "  >> cloud-sql-proxy already installed <<"
+  fi
+}
+
+
+
 install_aws_cli(){
   local force="${1:-false}"
 
