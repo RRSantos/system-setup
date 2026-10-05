@@ -7,12 +7,13 @@ sudo apt update && sudo apt install -y apt-transport-https wget gpg
 
 install_vscode_deb
 install_codium
-install_sql_beekeeper
-install_mongodb_compass
+# install_sql_beekeeper
+# install_mongodb_compass
 install_httpie
 install_bruno
 install_ardm
 install_kitty
 install_remmina
 install_draw_io
+install_dbeaver_ce
 install_chatgpt_desktop

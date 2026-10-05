@@ -887,3 +887,17 @@ install_yazi(){
     echo "  >> yazi already installed <<"
   fi
 }
+
+install_dbeaver_ce(){
+  local force="${1:-false}"
+  if [[ "$force" == "true" ]] || ! command_exists dbeaver-ce; then
+    sudo wget -q -O - https://dbeaver.io/debs/dbeaver.gpg.key | sudo gpg --dearmor -o /usr/share/keyrings/dbeaver.gpg.key
+    echo "deb [signed-by=/usr/share/keyrings/dbeaver.gpg.key] https://dbeaver.io/debs/dbeaver-ce /" | sudo tee /etc/apt/sources.list.d/dbeaver.list
+    sudo apt-get update && sudo apt-get install dbeaver-ce -y
+
+
+    # sudo apt update && sudo apt install dbeaver-ce -y
+  else
+    echo "  >> dbeaver-ce is already installed <<"
+  fi
+}
