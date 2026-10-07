@@ -901,3 +901,17 @@ install_dbeaver_ce(){
     echo "  >> dbeaver-ce is already installed <<"
   fi
 }
+
+install_trivy(){
+  local force="${1:-false}"
+  TRIVY_VERSION=0.75.0
+  TRIVY_PACKAGE_NAME=trivy_Linux-64bit.deb
+  if [[ "$force" == "true" ]] || ! command_exists trivy; then
+    echo "https://github.com/aquasecurity/trivy/releases/download/v${TRIVY_VERSION}/trivy_${TRIVY_VERSION}_Linux-64bit.deb"
+    curl -L "https://github.com/aquasecurity/trivy/releases/download/v${TRIVY_VERSION}/trivy_${TRIVY_VERSION}_Linux-64bit.deb" -o "${TRIVY_PACKAGE_NAME}"
+    sudo dpkg -i "${TRIVY_PACKAGE_NAME}"
+    rm "${TRIVY_PACKAGE_NAME}"
+  else
+    echo "  >> trivy is already installed <<"
+  fi
+}
