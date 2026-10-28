@@ -915,3 +915,16 @@ install_trivy(){
     echo "  >> trivy is already installed <<"
   fi
 }
+
+
+install_yq(){
+  local force="${1:-false}"
+
+  if [[ "$force" == "true" ]] || ! command_exists yq; then
+    sudo curl -L "https://github.com/mikefarah/yq/releases/latest/download/yq_linux_amd64" -o /usr/local/bin/yq
+    sudo chmod +x /usr/local/bin/yq
+  else
+    echo "  >> yq is already installed <<"
+  fi
+}
+

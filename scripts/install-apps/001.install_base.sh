@@ -12,3 +12,4 @@ install_eza
 install_batcat
 install_yazi
 install_csvlens
+install_yq
