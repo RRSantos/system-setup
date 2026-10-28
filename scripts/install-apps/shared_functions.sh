@@ -125,6 +125,20 @@ install_helm(){
   fi
 }
 
+install_helm4(){
+  local force="${1:-false}"
+  if [[ "$force" == "true" ]] || ! command_exists helm4; then
+    HELM_VERSION="v4.2.1"
+    curl -L "https://get.helm.sh/helm-${HELM_VERSION}-linux-amd64.tar.gz" -o "helm-linux-amd64.tar.gz"
+    tar  -xzvf "helm-linux-amd64.tar.gz"
+    sudo install -o root -g root -m 0755 ./linux-amd64/helm /usr/local/bin/helm4
+    rm "helm-linux-amd64.tar.gz"
+    rm -rf ./linux-amd64
+  else
+    echo "  >> helm4 already installed <<"
+  fi
+}
+
 install_gcloud(){
   local force="${1:-false}"
 

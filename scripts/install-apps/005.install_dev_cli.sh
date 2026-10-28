@@ -12,6 +12,7 @@ install_kubectx
 install_kubens
 install_go
 install_helm
+install_helm4
 install_docker
 config_docker_groups
 install_az_cli
