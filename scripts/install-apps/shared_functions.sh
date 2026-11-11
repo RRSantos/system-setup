@@ -942,3 +942,14 @@ install_yq(){
   fi
 }
 
+install_istioctl(){
+  local force="${1:-false}"
+
+  if [[ "$force" == "true" ]] || ! command_exists istioctl; then
+    curl -sL https://istio.io/downloadIstioctl | sh
+    sudo mv ~/.istioctl/bin/istioctl /usr/local/bin/istioctl
+    rm -rf ~/.istioctl
+  else
+    echo "  >> istioctl is already installed <<"
+  fi
+}
