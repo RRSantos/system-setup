@@ -953,3 +953,17 @@ install_istioctl(){
     echo "  >> istioctl is already installed <<"
   fi
 }
+
+install_vegeta(){
+  local force="${1:-false}"
+  if [[ "$force" == "true" ]] || ! command_exists vegeta; then
+    VEGETA_VERSION="12.13.0"
+    curl -L "https://github.com/tsenart/vegeta/releases/download/v${VEGETA_VERSION}/vegeta_${VEGETA_VERSION}_linux_amd64.tar.gz" -o "vegeta.tar.gz"
+    sudo tar -C /usr/bin -xzf vegeta.tar.gz
+    rm "vegeta.tar.gz"
+  else
+    echo "  >> vegeta is already installed <<"
+  fi
+}
+
+
